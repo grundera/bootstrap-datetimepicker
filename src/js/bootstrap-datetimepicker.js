@@ -210,7 +210,7 @@
             else {
                 var eData = picker.element.find('input').data();
             }
-            
+
             if (eData.pickdate !== undefined) picker.options.pickDate = eData.pickdate;
             if (eData.picktime !== undefined) picker.options.pickTime = eData.picktime;
             if (eData.useminutes !== undefined) picker.options.useMinutes = eData.useminutes;
@@ -232,7 +232,7 @@
             offset = picker.component ? picker.component.offset() : picker.element.offset(), $window = $(window);
             picker.width = picker.component ? picker.component.outerWidth() : picker.element.outerWidth();
             offset.top = offset.top + picker.element.outerHeight();
-            
+
             // if (picker.options.direction === 'up' || picker.options.direction === 'auto' && offset.top + picker.widget.height() > $window.height()) {
         		// offset.top -= picker.widget.height() + picker.element.outerHeight();
             	// picker.widget.addClass('up');
@@ -280,8 +280,8 @@
                 oldDate: pMoment(oldDate)
             });
 
-            if (eventType !== 'change')
-                picker.element.change();
+            // if (eventType !== 'change')
+            //     picker.element.change();
         },
 
 		notifyError = function (date) {
