@@ -68,7 +68,8 @@
             enabledDates: false,
             icons: {},
             useStrict: false,
-            direction: "auto"
+            direction: "auto",
+            sideBySide: false
         },
 
 		icons = {
@@ -144,7 +145,8 @@
                 }
             }
 
-            picker.widget = $(getTemplate(picker.options.pickDate, picker.options.pickTime, picker.options.collapse)).appendTo('body');
+            picker.widget = $(getTemplate(picker.options.pickDate, picker.options.pickTime,
+                                          picker.options.collapse, picker.options.sideBySide)).appendTo('body');
             picker.minViewMode = picker.options.minViewMode || picker.element.data('date-minviewmode') || 0;
             if (typeof picker.minViewMode === 'string') {
                 switch (picker.minViewMode) {
@@ -857,21 +859,32 @@
             else return '0' + string;
         },
 
-        getTemplate = function (pickDate, pickTime, collapse) {
+        getTemplate = function (pickDate, pickTime, collapse, sideBySide) {
             if (pickDate && pickTime) {
-                return (
-                    '<div class="bootstrap-datetimepicker-widget dropdown-menu" style="z-index:9999 !important;">' +
-                        '<ul class="list-unstyled">' +
-							'<li' + (collapse ? ' class="collapse in"' : '') + '>' +
-								'<div class="datepicker">' + dpGlobal.template + '</div>' +
-							'</li>' +
-							'<li class="picker-switch accordion-toggle"><a class="btn" style="width:100%"><span class="' + picker.options.icons.time + '"></span></a></li>' +
-							'<li' + (collapse ? ' class="collapse"' : '') + '>' +
-								'<div class="timepicker">' + tpGlobal.getTemplate() + '</div>' +
-							'</li>' +
-                        '</ul>' +
-                    '</div>'
-                );
+                if (sideBySide) {
+                    return (
+                        '<div class="bootstrap-datetimepicker-widget dropdown-menu side-by-side" >' +
+                            '<div class="datepicker">' + dpGlobal.template + '</div>' +
+                            '<div class="timepicker ' + (picker.options.use24hours ? 'hour-format-24' : 'hour-format-12' ) + '">' +
+                                tpGlobal.getTemplate() +
+                            '</div>' +
+                        '</div>'
+                    );
+                } else {
+                    return (
+                        '<div class="bootstrap-datetimepicker-widget dropdown-menu" style="z-index:9999 !important;">' +
+                            '<ul class="list-unstyled">' +
+                                '<li' + (collapse ? ' class="collapse in"' : '') + '>' +
+                                    '<div class="datepicker">' + dpGlobal.template + '</div>' +
+                                '</li>' +
+                                '<li class="picker-switch accordion-toggle"><a class="btn" style="width:100%"><span class="' + picker.options.icons.time + '"></span></a></li>' +
+                                '<li' + (collapse ? ' class="collapse"' : '') + '>' +
+                                    '<div class="timepicker">' + tpGlobal.getTemplate() + '</div>' +
+                                '</li>' +
+                            '</ul>' +
+                        '</div>'
+                    );
+                }
             } else if (pickTime) {
                 return (
                     '<div class="bootstrap-datetimepicker-widget dropdown-menu">' +
@@ -934,6 +947,7 @@
         tpGlobal.getTemplate = function () {
             return (
                 '<div class="timepicker-picker">' +
+                    (picker.options.sideBySide ? '<div class="timepicker-header"></div>' : '' ) +
                     '<table class="table-condensed">' +
 						'<tr>' +
 							'<td><a href="#" class="btn" data-action="incrementHours"><span class="' + picker.options.icons.up + '"></span></a></td>' +
@@ -963,9 +977,11 @@
                     '</table>' +
                 '</div>' +
                 '<div class="timepicker-hours" data-action="selectHour">' +
+                    (picker.options.sideBySide ? '<div class="timepicker-header"></div>' : '' ) +
                     '<table class="table-condensed"></table>' +
                 '</div>' +
                 '<div class="timepicker-minutes" data-action="selectMinute">' +
+                    (picker.options.sideBySide ? '<div class="timepicker-header"></div>' : '' ) +
                     '<table class="table-condensed"></table>' +
                 '</div>' +
                 (picker.options.useSeconds ?
