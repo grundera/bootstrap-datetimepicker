@@ -146,8 +146,16 @@ THE SOFTWARE.
 
             picker.widget = $(getTemplate()).appendTo('body');
 
-            if (picker.options.useSeconds && !picker.use24hours) {
-                picker.widget.width(300);
+            if (picker.options.sideBySide) {
+                if (picker.options.useSeconds) {
+                    picker.widget.width(650);
+                } else {
+                    picker.widget.width(500);
+                }
+            } else {
+                if (picker.options.useSeconds && !picker.use24hours) {
+                    picker.widget.width(300);
+                }
             }
 
             picker.minViewMode = picker.options.minViewMode || 0;
