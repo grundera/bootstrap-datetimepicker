@@ -866,12 +866,17 @@ THE SOFTWARE.
 		        return;
 		    }
 
+            var dayChange = picker.date.year() !== newDate.year() || picker.date.dayOfYear() !== newDate.dayOfYear();
+
 		    if (direction == "add") {
 		        picker.date.add(amount, unit);
 		    }
 		    else {
 		        picker.date.subtract(amount, unit);
 		    }
+            if (dayChange) {
+                fillDate();
+            }
 		    picker.unset = false;
 		},
 
