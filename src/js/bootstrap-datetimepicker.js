@@ -764,9 +764,9 @@ THE SOFTWARE.
                     'change': $.proxy(change, this)
                 }, 'input');
                 if (picker.component) {
-                    picker.component.on('click', $.proxy(picker.show, this));
+                    picker.component.on('click', $.proxy(picker.toggle, this));
                 } else {
-                    picker.element.on('click', $.proxy(picker.show, this));
+                    picker.element.on('click', $.proxy(picker.toggle, this));
                 }
             }
         },
@@ -776,7 +776,7 @@ THE SOFTWARE.
                 'resize.datetimepicker' + picker.id, $.proxy(place, this));
             if (!picker.isInput) {
                 $(document).on(
-                    'mousedown.datetimepicker' + picker.id, $.proxy(picker.hide, this));
+                    'mousedown.datetimepicker' + picker.id, $.proxy(picker.hideOnGlobalEvent, this));
             }
         },
 
@@ -1095,6 +1095,21 @@ THE SOFTWARE.
                 date: pMoment(picker.date)
             });
             detachDatePickerGlobalEvents();
+        },
+
+        picker.hideOnGlobalEvent = function(event) {
+            // Hide only if it's not click on the picker icon
+            if (picker.component.find(event.target).length == 0) {
+                picker.hide();
+            };
+        },
+
+        picker.toggle = function (event) {
+            if (picker.widget.is(':visible')) {
+                picker.hide();
+            } else {
+                picker.show();
+            }
         },
 
         picker.setValue = function (newDate) {
