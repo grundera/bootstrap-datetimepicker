@@ -311,8 +311,8 @@ THE SOFTWARE.
                 oldDate: pMoment(oldDate)
             });
 
-            if (eventType !== 'change')
-                picker.element.change();
+            // if (eventType !== 'change')
+            //     picker.element.change();
         },
 
 		notifyError = function (date) {
@@ -1130,7 +1130,7 @@ THE SOFTWARE.
             } else {
                 picker.unset = false;
             }
-            if (!pMoment.isMoment(newDate)) newDate = pMoment(newDate, picker.format);
+            if (!pMoment.isMoment(newDate)) newDate = pMoment(newDate);
             if (newDate.isValid()) {
                 picker.date = newDate;
                 set();
