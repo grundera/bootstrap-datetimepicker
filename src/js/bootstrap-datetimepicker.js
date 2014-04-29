@@ -1118,7 +1118,7 @@ THE SOFTWARE.
 
         picker.hideOnGlobalEvent = function(event) {
             // Hide only if it's not click on the picker icon
-            if (picker.component.find(event.target).length == 0) {
+            if (picker.component && picker.component.get(0) !== event.target && picker.component.find(event.target).length == 0) {
                 picker.hide();
             };
         },
