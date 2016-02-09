@@ -150,7 +150,7 @@ THE SOFTWARE.
                 if (picker.options.useSeconds) {
                     picker.widget.width(650);
                 } else {
-                    picker.widget.width(500);
+                    picker.widget.width(410);
                 }
             } else {
                 if (picker.options.useSeconds && !picker.use24hours) {
