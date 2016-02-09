@@ -99,7 +99,7 @@ THE SOFTWARE.
                 throw new Error('Must choose at least one picker');
 
             picker.id = dpgId++;
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             picker.date = pMoment();
             picker.unset = false;
             picker.isInput = picker.element.is('input');
@@ -304,7 +304,7 @@ THE SOFTWARE.
         },
 
         notifyChange = function (oldDate, eventType) {
-            if (pMoment(picker.date).isSame(pMoment(oldDate))) return;
+            //if (pMoment(picker.date).isSame(pMoment(oldDate))) return;
             picker.element.trigger({
                 type: 'dp.change',
                 date: pMoment(picker.date),
@@ -323,7 +323,7 @@ THE SOFTWARE.
 		},
 
         update = function (newDate) {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var dateStr = newDate;
             if (!dateStr) {
                 dateStr = getPickerInput().val()
@@ -336,7 +336,7 @@ THE SOFTWARE.
         },
 
 		fillDow = function () {
-		    pMoment.lang(picker.options.language);
+		    //pMoment.lang(picker.options.language);
 		    var html = $('<tr>'), weekdaysMin = pMoment.weekdaysMin(), i;
 		    if (pMoment()._lang._week.dow == 0) { // starts on Sunday
 		        for (i = 0; i < 7; i++) {
@@ -355,7 +355,7 @@ THE SOFTWARE.
 		},
 
         fillMonths = function () {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var html = '', i = 0, monthsShort = pMoment.monthsShort();
             while (i < 12) {
                 html += '<span class="month">' + monthsShort[i++] + '</span>';
@@ -364,7 +364,7 @@ THE SOFTWARE.
         },
 
         fillDate = function () {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var year = picker.viewDate.year(),
                 month = picker.viewDate.month(),
                 startYear = picker.options.minDate.year(),
@@ -464,7 +464,7 @@ THE SOFTWARE.
         },
 
         fillHours = function () {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var table = picker.widget.find('.timepicker .timepicker-hours table'), html = '', current, i, j;
             table.parent().hide();
             if (picker.use24hours) {
@@ -720,7 +720,7 @@ THE SOFTWARE.
         },
 
         change = function (e) {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var input = $(e.target), oldDate = pMoment(picker.date), newDate = pMoment(input.val(), picker.format, picker.options.useStrict);
             if (newDate.isValid() && !isInDisableDates(newDate) && isInEnableDates(newDate)) {
                 update();
@@ -749,7 +749,7 @@ THE SOFTWARE.
             picker.widget.on('click', '.datepicker *', $.proxy(click, this)); // this handles date picker clicks
             picker.widget.on('click', '[data-action]', $.proxy(doAction, this)); // this handles time picker clicks
             picker.widget.on('mousedown', $.proxy(stopEvent, this));
-            if (picker.options.pickDate && picker.options.pickTime) {
+            if (picker.options.pickDate /*&& picker.options.pickTime*/) {
                 picker.widget.on('click.togglePicker', '.accordion-toggle', function (e) {
                     e.stopPropagation();
                     $this = $(this);
@@ -798,7 +798,7 @@ THE SOFTWARE.
             picker.widget.off('click', '.datepicker *', picker.click);
             picker.widget.off('click', '[data-action]');
             picker.widget.off('mousedown', picker.stopEvent);
-            if (picker.options.pickDate && picker.options.pickTime) {
+            if (picker.options.pickDate /*&& picker.options.pickTime*/) {
                 picker.widget.off('click.togglePicker');
             }
             if (picker.isInput) {
@@ -842,16 +842,16 @@ THE SOFTWARE.
         },
 
         set = function () {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             var formatted = '', input;
             if (!picker.unset) formatted = pMoment(picker.date).format(picker.format);
             getPickerInput().val(formatted);
             picker.element.data('date', formatted);
-            if (!picker.options.pickTime) picker.hide();
+            /*if (!picker.options.pickTime) picker.hide();*/
         },
 
 		checkDate = function (direction, unit, amount) {
-		    pMoment.lang(picker.options.language);
+		    //pMoment.lang(picker.options.language);
 		    var newDate;
 		    if (direction == "add") {
 		        newDate = pMoment(picker.date);
@@ -881,7 +881,7 @@ THE SOFTWARE.
 		},
 
         isInDisableDates = function (date) {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             if (date.isAfter(picker.options.maxDate) || date.isBefore(picker.options.minDate)) return true;
             if (picker.options.disabledDates === false) {
                 return false;
@@ -889,7 +889,7 @@ THE SOFTWARE.
             return picker.options.disabledDates[pMoment(date).format("YYYY-MM-DD")] === true;
         },
         isInEnableDates = function (date) {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             if (picker.options.enabledDates === false) {
                 return true;
             }
@@ -1133,7 +1133,7 @@ THE SOFTWARE.
         },
 
         picker.setValue = function (newDate) {
-            pMoment.lang(picker.options.language);
+            //pMoment.lang(picker.options.language);
             if (!newDate) {
                 picker.unset = true;
                 set();
